@@ -1,10 +1,19 @@
 import json
+from typing import Any
 from httpx import head
 import requests
 url_debug = "http://127.0.0.1:5000"
 
 with open("members.json", 'r') as file: 
     members = json.load(file)
+
+def add_member(member: list[Any]):
+    with open("members.json", 'r') as file: 
+        dados = json.load(file) 
+    dados[member[0]] = member[1]
+    with open("members.json", "w") as file: 
+        json.dump(dados, file)  
+    return f"Nome: {member[0]}, IP: {member[1]} registrado com sucesso."
     
 def pass_mouse_coord(par: list[float]):
     for key in members:
